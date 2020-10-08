@@ -7,6 +7,7 @@ Created on Wed Oct  7 15:57:10 2020
 """
 
 import numpy as np
+import math
 
 def fact(x=None):
     if(x == 0):
@@ -15,11 +16,12 @@ def fact(x=None):
         return (x*fact(x-1))
 
 def probPoisson(lambd,evento):
+    valor = 0
     contador = 0
     for i in range (evento + 1):
         valor = (((math.e)**(-lambd))*lambd**(i))/fact(i)
         contador = contador + valor
-        print("i =", (i) ,"p(x) =", valor)
+        print("i=",i,"p(i) =" , valor)
 
 alpha = 0.05
 
@@ -43,7 +45,9 @@ for j in range(maximo+1):
 for j in range(len(frecuencias)):
     lambd = lambd + (j*(frecuencias[j]))
 
-#print("La media es lambd=",lambd/len(lista))
+lambd = (lambd)/len(lista)
+
+print("lamda =",lambd)
 
 datos = np.random.poisson(lambd,5000)
 #print(datos)
@@ -52,4 +56,4 @@ datos = np.random.poisson(lambd,5000)
 ######Uso del metodo probPoisson####
 j=0
 for j in range(len(datos)):
-    prob = probPoisson(lambd,j) ##Revisar!!!!
+    prob = probPoisson(lambd,datos[j]) ##Revisar!!!!
