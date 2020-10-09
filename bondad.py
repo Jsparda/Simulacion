@@ -16,21 +16,24 @@ def fact(x=None):
         return (x*fact(x-1))
 
 def probPoisson(lambd,evento):
-    valor = 0
+    valor = 0.0
     contador = 0
     for i in range (evento + 1):
         valor = (((math.e)**(-lambd))*lambd**(i))/fact(i)
         contador = contador + valor
-        print("i=",i,"p(i) =" , valor)
+        #print("i=",i,"p(i) =" , valor)
+    return valor
 
-alpha = 0.05
+H0 = 0.05
 
 lambd = 0.0
 
+prob = []
 lista = []
 frecuencias = {}
+#Ni = []
 
-prob = 0.0
+
 
 f = open("muestras.txt","r")
 
@@ -56,4 +59,14 @@ datos = np.random.poisson(lambd,5000)
 ######Uso del metodo probPoisson####
 j=0
 for j in range(len(datos)):
-    prob = probPoisson(lambd,datos[j]) ##Revisar!!!!
+    prob.insert(j,probPoisson(lambd,datos[j]))
+
+j=0
+while(j < len(prob)):
+    if(prob[j] <= H0):
+        print("aceptado")
+    else:
+        print("no aceptado")
+    j = j +1
+#print(Ni)
+#print(len(Ni))
