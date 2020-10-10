@@ -54,64 +54,77 @@ a = [liPro[j] for j in range(len(liPro)) if j == liPro.index(liPro[j])] ##Busca 
 print("Arroje repetidos")
 
 print("#repetidos:",len(a))
-#frecuencia.pop(9)  ##Elimina al 9 que no tiene está en la lista
 print("#Frecuencias:",len(frecuencia))
 
 
 j = 0
+#Frecuencia esperada
 for j in range(len(a)):
     frec = len(muestras)*a[j]
     frecuenciaEsp.append(frec)
     
 for j in range(len(frecuenciaEsp)):
-    #for k in range(len(frecuenciaEsp)):
     tiA = ((frecuencia[j]-frecuenciaEsp[j])**2)/frecuenciaEsp[j]
     ti.append(tiA)
     t = t + ti[j]
 print("t=",t,"len ti",len(ti))
 
 
-#========================Poisson==================================
+print("========================Poisson==================================")
 #Genero los valores aleatorios con Poisson
 
 
 
+poissA = []
 poiss = np.random.poisson(lambd,5000)
-print (poiss)
-maxPoiss = max(poiss)
+poissA = poiss.tolist()
+
+maxPoiss = max(poissA)
 print(maxPoiss)
 
 frecuenciaPoiss = {}
+freccEspPois = []
+
 j=0
 for j in range(maximo+1):
-    frecuenciaPoiss[j] = poiss.count(j)
-    
-print(frecuenciaPoiss)
+    frecuenciaPoiss[j] = poissA.count(j)
+print("FrecuenciaPoiss",len(frecuenciaPoiss))
 
-
-#probPoiss = []
+probPoiss = []
 
 j = 0
 
-#for j in range(len(poiss)):
- #   pro = probPoisson(lambd,poiss[j])
-  #  probPoiss.append(pro)
+for j in range(len(poiss)):
+    pro = probPoisson(lambd,poissA[j])
+    probPoiss.append(pro)
+print(len(probPoiss))
 
-    
+#Frecuencia esperada
 
+j = 0
+#Frecuencia esperada
+for j in range(len(frecuenciaPoiss)):
+    frec2 = len(poissA)*frecuenciaPoiss[j]
+    freccEspPois.append(frec2)
+print(len(freccEspPois))
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ti2 = []
+t2 = 0.0
+Qr = 0
+print("==================Aceptación====================")
+for j in range(len(freccEspPois)):
+    tiB = ((frecuencia[j]-freccEspPois[j])**2)/freccEspPois[j]
+    #print("Ti=",tiB,">= t=",t,"?")
+    if(tiB >= t):
+        #print("Aumento")
+        Qr = Qr + 1
+        
+gamma = Qr/5000
+print("Qr/5000=",gamma)
+if(gamma > H0):
+    print("aceptado")
+else:
+    print("rechazo")
     
 
 
