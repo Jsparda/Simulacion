@@ -49,7 +49,8 @@ for j in range(len(muestras)):   ##Calcula las probabilidades de la lista de mue
 print(len(liPro))
 
 print("Busco repetidos")
-a = [liPro[j] for j in range(len(liPro)) if j == liPro.index(liPro[j])] ##Busca probabilidades repetidas
+## a es la lista de probabilidades repetidas
+a = [liPro[j] for j in range(len(liPro)) if j == liPro.index(liPro[j])] ##Busca probabilidades repetidas 
 print("Arroje repetidos")
 
 print("#repetidos:",len(a))
@@ -73,16 +74,29 @@ print("t=",t,"len ti",len(ti))
 #========================Poisson==================================
 #Genero los valores aleatorios con Poisson
 
-poiss = np.random.poisson(lambd,5000)
 
-probPoiss = []
+
+poiss = np.random.poisson(lambd,5000)
+print (poiss)
+maxPoiss = max(poiss)
+print(maxPoiss)
+
+frecuenciaPoiss = {}
+j=0
+for j in range(maximo+1):
+    frecuenciaPoiss[j] = poiss.count(j)
+    
+print(frecuenciaPoiss)
+
+
+#probPoiss = []
 
 j = 0
 
-for j in range(len(poiss)):
-    pro = probPoisson(lambd,poiss[j])
-    probPoiss.append(pro)
-print(probPoiss)
+#for j in range(len(poiss)):
+ #   pro = probPoisson(lambd,poiss[j])
+  #  probPoiss.append(pro)
+
     
 
 
