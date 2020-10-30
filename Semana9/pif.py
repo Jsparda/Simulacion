@@ -24,6 +24,7 @@ class Algorithm2(Model):
         
     def receive(self,event):
         self.count -= 1
+        tupla = event.name
         if tupla[1] > self.mayor[1]:
             self.mayor = tupla
         if self.visited == False:
@@ -55,7 +56,7 @@ for i in range(1,len(experiment.graph)+1):
     m = Algorithm2()
     experiment.setModel(m,i)
 #Inserta un evento semilla en la agenda y arranca
-tupla =(-1,-1)
+tupla = (-1,-1)
 seed = Event(tupla,0.0,1,1)
 experiment.init(seed)
 experiment.run()
